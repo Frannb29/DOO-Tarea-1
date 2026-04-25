@@ -1,11 +1,11 @@
 package Maquina_Expendedora;
 
-class CocaCola extends Bebida {
+public class CocaCola extends Bebida {
     public CocaCola(int serie){
         super(serie);
     }
     @Override
-    public String beber(){
-        return "cocacola";
+    public String consumir(){
+        return "Coca Cola";
     }
 }
