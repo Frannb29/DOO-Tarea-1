@@ -1,7 +1,7 @@
 package Maquina_Expendedora;
 
-public abstract class Bebida extends Producto{
-    public Bebida(int serie){
+public abstract class Dulce extends Producto{
+    public Dulce(int serie){
         super(serie);
     }
     @Override
