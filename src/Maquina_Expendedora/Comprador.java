@@ -3,10 +3,10 @@ package Maquina_Expendedora;
 class Comprador {
     private String sonido;
     private int vuelto;
-    public Comprador(Moneda m, int cual, Expendedor exp){
-        Bebida b= exp.comprarBebida(m,cual);
+    public Comprador(Moneda m, ValorProducto cualProducto, Expendedor exp){
+        Producto b= exp.comprarBebida(m,cualProducto);
         if(b!=null){
-            sonido=b.beber();
+            sonido=b.consumir();
         }
         else{
             sonido=null;
@@ -20,7 +20,7 @@ class Comprador {
     public int cuantoVuelto(){
         return vuelto;
     }
-    public String queBebiste(){
+    public String queConsumiste(){
         return sonido;
     }
 }
