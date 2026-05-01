@@ -1,53 +1,66 @@
 package Maquina_Expendedora;
 
 class Expendedor {
-    public static final int COCA = 1;
-    public static final int SPRITE = 2;
-    private Deposito sprite;
-    private Deposito coca;
-    private DepositoM monVu;
-    private int precio;
-
-    public Expendedor(int cant, int precio) {
-        this.sprite = new Deposito();
-        this.coca = new Deposito();
-        this.monVu = new DepositoM();
-        this.precio = precio;
-        for (int i = 0; i < cant; i++) {
-            Sprite s = new Sprite(i + 200);
-            CocaCola c = new CocaCola(i + 100);
-            sprite.addBebida(s);
-            coca.addBebida(c);
-
+    private Deposito<Bebida> coca;
+    private Deposito<Bebida> sprite;
+    private Deposito<Bebida> fanta;
+    private Deposito<Dulce> super8;
+    private Deposito<Dulce> snickers;
+    private Deposito<Moneda> monVu;
+    public Expendedor(int numProducto){
+        coca=new Deposito();
+        sprite=new Deposito();
+        fanta=new Deposito();
+        super8=new Deposito();
+        snickers=new Deposito();
+        monVu=new Deposito();
+        for(int i=0;i<numProducto;i++){
+            coca.add(new CocaCola(100+i));
+            sprite.add(new Sprite(200+i));
+            fanta.add(new Fanta(300+i));
+            super8.add(new Super8(400+i));
+            snickers.add(new Snickers(500+i));
         }
-
     }
-
-    public Bebida comprarBebida(Moneda m, int select) {
-        if (m == null) {
+    public Producto comprarProducto(Moneda m,ValorProducto producto){
+        if(m==null){
             return null;
         }
-        if (m.getValor() < this.precio) {
-            monVu.addMoneda(m);
+        int precioProducto=producto.getPrecio();
+        if(m.getValor()<precioProducto){
+            monVu.add(m);
             return null;
         }
-        Bebida b=null;
-        if (select == COCA) {
-            b = coca.getBebida();
-        } else if (select == SPRITE) {
-            b = sprite.getBebida();
-        } else {
-            monVu.addMoneda(m);
+        Producto productoAuxiliar=null;
+        if(producto==ValorProducto.COCA){
+            productoAuxiliar=coca.get();
+        }
+        else if(producto==ValorProducto.SPRITE){
+            productoAuxiliar=sprite.get();
+        }
+        else if(producto==ValorProducto.FANTA){
+            productoAuxiliar=fanta.get();
+        }
+        else if(producto==ValorProducto.SUPER8){
+            productoAuxiliar=super8.get();
+        }
+        else if(producto==ValorProducto.SNICKERS){
+            productoAuxiliar=snickers.get();
+        }
+        if(productoAuxiliar!=null){
+            int vuelto= m.getValor()-precioProducto;
+            while(vuelto>0){
+                monVu.add(new Moneda100());
+                vuelto-=100;
+            }
+            return productoAuxiliar;
+        }
+        else{
+            monVu.add(m);
             return null;
         }
-        int dif = (m.getValor() - this.precio) / 100;
-
-        for (int i = 0; i < dif; i++) {
-            monVu.addMoneda(new Moneda100());
-        }
-        return b;
     }
     public Moneda getVuelto(){
-        return monVu.getMoneda();
+        return monVu.get();
     }
 }
