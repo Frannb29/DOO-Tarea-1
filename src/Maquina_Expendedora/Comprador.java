@@ -4,18 +4,34 @@ class Comprador {
     private String sonido;
     private int vuelto;
     public Comprador(Moneda m, int cual, Expendedor exp){
-        Bebida b= exp.comprarBebida(m,cual);
-        if(b!=null){
-            sonido=b.beber();
+        try{
+            Bebida b= exp.comprarBebida(m,cual);
+            if(b!=null){
+                sonido=b.consumir();
+            }
+            else{
+                sonido=null;
+            }
+            this.vuelto=0;
+            Moneda mon;
+            while((mon=exp.getVuelto())!=null){
+                this.vuelto+=mon.getValor();
+            }
+        } 
+        catch (NoHayProductoException np){
+            this.vuelto+=exp.getVuelto().getValor();
+            System.out.println(np);
         }
-        else{
-            sonido=null;
+
+        catch (PagoInsuficienteException pi){
+            this.vuelto+=exp.getVuelto().getValor();
+            System.out.println(pi);
         }
-        this.vuelto=0;
-        Moneda mon;
-        while((mon=exp.getVuelto())!=null){
-            this.vuelto+=mon.getValor();
+
+        catch (PagoIncorrectoException pii){
+            System.out.println(pii);
         }
+
     }
     public int cuantoVuelto(){
         return vuelto;
