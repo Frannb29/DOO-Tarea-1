@@ -75,7 +75,7 @@ public class MainInteractivo {
 
                 try{
                     comprador = new Comprador(moneda, vp, exp);
-                    System.out.println("Producto: "+ comprador.queBebiste()+", Vuelto: "+comprador.cuantoVuelto());
+                    System.out.println("Producto: "+ comprador.queConsumiste()+", Vuelto: "+comprador.cuantoVuelto());
                 } catch (PagoInsuficienteException | PagoIncorrectoException | NoHayProductoException e){
                     System.err.println(e);
                 }
