@@ -100,23 +100,26 @@ public class MainInteractivo {
                     System.out.println("Producto: "+ comprador.queBebiste()+", Vuelto: "+comprador.cuantoVuelto());
                 } catch (PagoInsuficienteException | PagoIncorrectoException | NoHayProductoException e){
                     System.err.println(e);
-                } finally{
-                    int cnt=-1;
-                    System.out.println("Desea comprar algo mas? (1 para si, otro entero para no): ");
-                    cnt=scanner.nextInt();
-                    if(cnt==1){
-                        continue;
-                    }
-                    else{
-                        loop=false;
-                        break;
-                    }
                 }
+                
+                int cnt=-1;
+                System.out.println("Desea comprar algo mas? (1 para si, otro entero para no): ");
+                cnt=scanner.nextInt();
+                if(cnt==1){
+                    continue;
+                }
+                else{
+                    loop=false;
+                    break;
+                }
+                
+                
         }
 
         try(scanner){
         } catch(Exception e){
             System.err.println(e);
         }
+    
     }
 }
