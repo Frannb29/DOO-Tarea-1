@@ -7,14 +7,17 @@ class Expendedor {
     private Deposito<Dulce> super8;
     private Deposito<Dulce> snickers;
     private Deposito<Moneda> monVu;
-    public Expendedor(int numProducto){
-        coca=new Deposito();
-        sprite=new Deposito();
-        fanta=new Deposito();
-        super8=new Deposito();
-        snickers=new Deposito();
-        monVu=new Deposito();
-        for(int i=0;i<numProducto;i++){
+
+    public Expendedor(int cant) {
+        coca=new Deposito<Bebida>();
+        sprite=new Deposito<Bebida>();
+        fanta=new Deposito<Bebida>();
+        super8=new Deposito<Dulce>();
+        snickers=new Deposito<Dulce>();
+        monVu=new Deposito<Moneda>();
+
+        for (int i = 0; i < cant; i++) {
+
             coca.add(new CocaCola(100+i));
             sprite.add(new Sprite(200+i));
             fanta.add(new Fanta(300+i));
@@ -22,44 +25,79 @@ class Expendedor {
             snickers.add(new Snickers(500+i));
         }
     }
-    public Producto comprarProducto(Moneda m,ValorProducto producto){
-        if(m==null){
-            return null;
+
+    public Producto comprarProducto(Moneda m, ValorProducto select) throws PagoIncorrectoException,
+        PagoInsuficienteException, NoHayProductoException{
+
+        Producto p=null;
+        int precioProducto=select.getPrecio();
+
+        if (m == null) {
+            throw new PagoIncorrectoException();
+
         }
-        int precioProducto=producto.getPrecio();
-        if(m.getValor()<precioProducto){
+        else if (m.getValor() < precioProducto) {
             monVu.add(m);
-            return null;
+            throw new PagoInsuficienteException();
         }
-        Producto productoAuxiliar=null;
-        if(producto==ValorProducto.COCA){
-            productoAuxiliar=coca.get();
-        }
-        else if(producto==ValorProducto.SPRITE){
-            productoAuxiliar=sprite.get();
-        }
-        else if(producto==ValorProducto.FANTA){
-            productoAuxiliar=fanta.get();
-        }
-        else if(producto==ValorProducto.SUPER8){
-            productoAuxiliar=super8.get();
-        }
-        else if(producto==ValorProducto.SNICKERS){
-            productoAuxiliar=snickers.get();
-        }
-        if(productoAuxiliar!=null){
-            int vuelto= m.getValor()-precioProducto;
-            while(vuelto>0){
-                monVu.add(new Moneda100());
-                vuelto-=100;
-            }
-            return productoAuxiliar;
-        }
+
         else{
-            monVu.add(m);
-            return null;
+            switch (select) {
+                case COCA:
+                    p=coca.get();
+                    if (p==null){
+                        monVu.add(m);
+                        throw new NoHayProductoException();
+                    }
+                    break;
+                
+                case SPRITE:
+                    p=sprite.get();
+                    if (p==null){
+                        monVu.add(m);
+                        throw new NoHayProductoException();
+                    }
+                    break;
+
+                case FANTA:
+                    p=fanta.get();
+                    if (p==null){
+                        monVu.add(m);
+                        throw new NoHayProductoException();
+                    }
+                    break;
+                
+                case SUPER8:
+                    p=super8.get();
+                    if (p==null){
+                        monVu.add(m);
+                        throw new NoHayProductoException();
+                    }
+                    break;
+                case SNICKERS:
+                    p=snickers.get();
+                    if (p==null){
+                        monVu.add(m);
+                        throw new NoHayProductoException();
+                    }
+                    break;
+
+                default:
+                    monVu.add(m);
+                    throw new NoHayProductoException();
+            }
+            
+            int dif = (m.getValor() - precioProducto) / 100;
+
+            for (int i = 0; i < dif; i++) {
+                monVu.add(new Moneda100());
+            }
+            return p;
         }
     }
+
+
+
     public Moneda getVuelto(){
         return monVu.get();
     }

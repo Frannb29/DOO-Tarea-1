@@ -3,21 +3,30 @@ package Maquina_Expendedora;
 class Comprador {
     private String sonido;
     private int vuelto;
-    public Comprador(Moneda m, ValorProducto cualProducto, Expendedor exp){
-        Producto auxiliar =exp.comprarProducto(m,cualProducto);
-        if(auxiliar!=null){
-            sonido= auxiliar.consumir();
+
+    public Comprador(Moneda m, ValorProducto cual, Expendedor exp) throws PagoInsuficienteException, PagoIncorrectoException,
+    NoHayProductoException {
+            this.sonido=null;
+            this.vuelto=0;
+
+            try{
+                Producto b = exp.comprarProducto(m,cual);
+                if(b!=null){
+                    this.sonido=b.consumir();
+                }
+            }
+            catch (PagoInsuficienteException | PagoIncorrectoException | NoHayProductoException e){
+                Moneda mon;
+                while((mon=exp.getVuelto())!=null){
+                    this.vuelto+=mon.getValor();
+                }
+                throw e;
+            }
+            Moneda mon;
+            while((mon=exp.getVuelto())!=null){
+                this.vuelto+=mon.getValor();
+            }
         }
-        else{
-            sonido=null;
-        }
-        vuelto=0;
-        Moneda monedaVuelto=exp.getVuelto();
-        while(monedaVuelto!=null) {
-            vuelto+=monedaVuelto.getValor();
-            monedaVuelto=exp.getVuelto();
-        }
-    }
     public int cuantoVuelto(){
         return vuelto;
     }

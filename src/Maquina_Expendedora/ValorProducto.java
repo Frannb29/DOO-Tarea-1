@@ -1,11 +1,12 @@
 package Maquina_Expendedora;
 
 public enum ValorProducto {
-    COCA(1,700),
-    SPRITE(2,800),
-    FANTA(3,900),
-    SUPER8(4,400),
-    SNICKERS(5,500);
+
+    COCA(1,300),
+    SPRITE(2,200),
+    FANTA(3,200),
+    SUPER8(4,500),
+    SNICKERS(5,1000);
 
     private int opcion;
     private int precio;
