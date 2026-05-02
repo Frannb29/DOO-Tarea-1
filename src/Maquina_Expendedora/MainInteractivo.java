@@ -6,30 +6,30 @@ public class MainInteractivo {
         boolean loop=true;
         Expendedor exp=null;
         Scanner scanner = new Scanner(System.in);
-        
+
         System.out.println("Ingrese la cantidad de productos a llenar(0 para salir):");
         int cantidad=scanner.nextInt();
         while(cantidad<0){
             System.out.println("Error: la cantidad debe ser positiva");
             System.out.println("Ingrese la cantidad de productos a llenar(0 para salir):");
+            cantidad= scanner.nextInt();
         }
         if (cantidad==0) System.exit(0);
         exp = new Expendedor(cantidad);
-        
+
 
         while(loop){
             Moneda moneda=null;
-            int productoNum=0;
 
 
             int opcion = -1;
-            
+
                 System.out.println("Seleccione un producto:");
-                System.out.println("1.CocaCola");
-                System.out.println("2.Sprite");
-                System.out.println("3.Fanta");
-                System.out.println("4.Super8");
-                System.out.println("5.Snickers");
+                System.out.println("1.CocaCola $300");
+                System.out.println("2.Sprite $200");
+                System.out.println("3.Fanta $200");
+                System.out.println("4.Super8 $500");
+                System.out.println("5.Snickers $1000");
                 System.out.println("0.Salir");
                 opcion = scanner.nextInt();
 
@@ -49,36 +49,14 @@ public class MainInteractivo {
                 }
 
                 ValorProducto vp=ValorProducto.values()[opcion-1];
-                
 
-                
-                switch (vp){
-                    case COCA:
-                        productoNum = ValorProducto.COCA.getOpcion();
-                        break;
-                    case SPRITE:
-                        productoNum = ValorProducto.SPRITE.getOpcion();
-                        break;
-                    case FANTA:
-                        productoNum = ValorProducto.FANTA.getOpcion();
-                        break;
-                    case SUPER8:
-                        productoNum = ValorProducto.SUPER8.getOpcion();
-                        break;
-                    case SNICKERS:
-                        productoNum = ValorProducto.SNICKERS.getOpcion();
-                        break;
-                    default:
-                        System.out.println("Eleccion no valida");
-                        continue;
-                }
                 System.out.println("Ingrese Moneda:");
                 System.out.println("1. Moneda 100");
                 System.out.println("2. Moneda 500");
                 System.out.println("3. Moneda 1000");
                 int valorMoneda = scanner.nextInt();
-                
-                
+
+
                 switch (valorMoneda) {
                     case 1:
                         moneda = new Moneda100();
@@ -96,12 +74,12 @@ public class MainInteractivo {
                 Comprador comprador=null;
 
                 try{
-                    comprador = new Comprador(moneda, productoNum, exp);
+                    comprador = new Comprador(moneda, vp, exp);
                     System.out.println("Producto: "+ comprador.queBebiste()+", Vuelto: "+comprador.cuantoVuelto());
                 } catch (PagoInsuficienteException | PagoIncorrectoException | NoHayProductoException e){
                     System.err.println(e);
                 }
-                
+
                 int cnt=-1;
                 System.out.println("Desea comprar algo mas? (1 para si, otro entero para no): ");
                 cnt=scanner.nextInt();
@@ -112,14 +90,14 @@ public class MainInteractivo {
                     loop=false;
                     break;
                 }
-                
-                
+
+
         }
 
         try(scanner){
         } catch(Exception e){
             System.err.println(e);
         }
-    
+
     }
 }

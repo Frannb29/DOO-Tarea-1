@@ -26,12 +26,11 @@ class Expendedor {
 
     }
 
-    public Producto comprarProducto(Moneda m, int select) throws PagoIncorrectoException, 
+    public Producto comprarProducto(Moneda m, ValorProducto select) throws PagoIncorrectoException,
         PagoInsuficienteException, NoHayProductoException{
 
         Producto p=null;
-        int precioProducto=ValorProducto.values()[select-1].getPrecio();
-        ValorProducto op=ValorProducto.values()[select-1];
+        int precioProducto=select.getPrecio();
 
         if (m == null) {
             throw new PagoIncorrectoException();
@@ -43,7 +42,7 @@ class Expendedor {
         }
 
         else{
-            switch (op) {
+            switch (select) {
                 case COCA:
                     p=coca.get();
                     if (p==null){

@@ -5,14 +5,23 @@ class Comprador {
     private int vuelto;
 
     
-    public Comprador(Moneda m, int cual, Expendedor exp) throws PagoInsuficienteException, PagoIncorrectoException,
+    public Comprador(Moneda m, ValorProducto cual, Expendedor exp) throws PagoInsuficienteException, PagoIncorrectoException,
     NoHayProductoException {
             this.sonido=null;
             this.vuelto=0;
 
-            Producto b= exp.comprarProducto(m,cual);
-            if(b!=null){
-                this.sonido=b.consumir();
+            try{
+                Producto b = exp.comprarProducto(m,cual);
+                if(b!=null){
+                    this.sonido=b.consumir();
+                }
+            }
+            catch (PagoInsuficienteException | PagoIncorrectoException | NoHayProductoException e){
+                Moneda mon;
+                while((mon=exp.getVuelto())!=null){
+                    this.vuelto+=mon.getValor();
+                }
+                throw e;
             }
             Moneda mon;
             while((mon=exp.getVuelto())!=null){
