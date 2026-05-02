@@ -1,26 +1,79 @@
 package Maquina_Expendedora;
+import java.util.Arrays;
 
 public class mainprueba {
     public static void main(String[] args) {
-        Expendedor exp=new Expendedor(2, 200);
+        Expendedor exp = new Expendedor(2);
+        Comprador c1=null;
+        Comprador c2=null;
+        Comprador c3=null;
+        Comprador c4=null;
+        Comprador c5=null;
+        Comprador c6=null;
+
+        try {
+            c1 = new Comprador(new Moneda1000(), 1, exp);
+            System.out.println(c1.queBebiste() + ", vuelto: " + c1.cuantoVuelto());
+        } catch (PagoInsuficienteException | PagoIncorrectoException | NoHayProductoException e) {
+            System.err.println(e);
+        }
         
-        Comprador c1= new Comprador(new Moneda1000(), 1, exp);
-        System.out.println(c1.queBebiste()+", vuelto: "+c1.cuantoVuelto());
+        try {
+            c2 = new Comprador(new Moneda500(), 1, exp);
+            System.out.println(c2.queBebiste() + ", vuelto: " + c2.cuantoVuelto());
+        } catch (PagoInsuficienteException | PagoIncorrectoException | NoHayProductoException e) {
+            System.err.println(e);
+        }
         
-        Comprador c2=new Comprador(new Moneda500(), 1, exp);
-        System.out.println(c2.queBebiste()+", vuelto: "+c2.cuantoVuelto());
+        try {
+            c3 = new Comprador(new Moneda500(), 1, exp);
+            System.out.println(c3.queBebiste() + ", vuelto: " + c3.cuantoVuelto());
+        } catch (PagoInsuficienteException | PagoIncorrectoException | NoHayProductoException e) {
+            System.err.println(e);
+        }
+        
+        try {
+            c4 = new Comprador(new Moneda100(), 2, exp);
+            System.out.println(c4.queBebiste() + ", vuelto: " + c4.cuantoVuelto());
+        } catch (PagoInsuficienteException | PagoIncorrectoException | NoHayProductoException e) {
+            System.err.println(e);
+        }
+        
+        try {
+            c5 = new Comprador(null, 2, exp);
+            System.out.println(c5.queBebiste() + ", vuelto: " + c5.cuantoVuelto());
+        } catch (PagoInsuficienteException | PagoIncorrectoException | NoHayProductoException e) {
+            System.err.println(e);
+        }
+        
+        try {
+            c6 = new Comprador(new Moneda1000(), 5, exp);
+            System.out.println(c6.queBebiste() + ", vuelto: " + c6.cuantoVuelto());
+        } catch (PagoInsuficienteException | PagoIncorrectoException | NoHayProductoException e) {
+            System.err.println(e);
+        }
 
-        Comprador c3=new Comprador(new Moneda500(), 1, exp);
-        System.out.println(c3.queBebiste()+", vuelto: "+c3.cuantoVuelto());
+        Moneda m1=new Moneda100();
+        Moneda m5=new Moneda500();
+        Moneda m10=new Moneda1000();
 
-        Comprador c4=new Comprador(new Moneda100(), 2, exp);
-        System.out.println(c4.queBebiste()+", vuelto: "+c4.cuantoVuelto());
+        System.out.println(m5);
+        System.out.println(m5.compareTo(new Moneda1000()));
+        System.out.println(m5.compareTo(new Moneda500()));
+        System.out.println(m5.compareTo(new Moneda100()));
 
-        Comprador c5=new Comprador(null, 2, exp);
-        System.out.println(c5.queBebiste()+", vuelto: "+c5.cuantoVuelto());
+        Moneda mons[]={m5,m10,m1};
 
-        Comprador c6=new Comprador(new Moneda1000(), 2, exp);
-        System.out.println(c6.queBebiste()+", vuelto: "+c6.cuantoVuelto());
+        for(int i=0; i<3; i++){
+            System.out.print(mons[i].getValor()+" ");
+        }
+        System.out.println();
 
+        Arrays.sort(mons);
+
+        for(int i=0; i<3; i++){
+            System.out.print(mons[i].getValor()+" ");
+        }
     }
 }
+

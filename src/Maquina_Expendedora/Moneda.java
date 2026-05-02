@@ -1,6 +1,6 @@
 package Maquina_Expendedora;
 
-abstract class Moneda{
+abstract class Moneda implements Comparable<Moneda>{
     public Moneda(){
     }
     public Moneda getSerie(){
@@ -8,4 +8,6 @@ abstract class Moneda{
 
     }
     public abstract int getValor();
+
+    
 }

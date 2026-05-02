@@ -1,21 +1,20 @@
 package Maquina_Expendedora;
 import java.util.ArrayList;
 
-class Deposito {
-    private ArrayList<Bebida> arr;
+public class Deposito<T>{
+    private ArrayList<T> elementos;
     public Deposito(){
-        this.arr = new ArrayList<Bebida>();
+        elementos=new ArrayList<T>();
     }
-    public void addBebida(Bebida b){
-        this.arr.add(b);
+    public void add(T objeto){
+        elementos.add(objeto);
     }
-    public Bebida getBebida(){
-        if(this.arr.size()==0){
-            return null;
+    public T get(){
+        if(elementos.size()>0){
+            return elementos.remove(0);
         }
         else{
-            Bebida b=this.arr.remove(0);
-            return b;
+            return null;
         }
     }
 }
