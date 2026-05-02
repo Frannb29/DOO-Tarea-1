@@ -1,7 +1,21 @@
 package Maquina_Expendedora;
 import java.util.Scanner;
 
+/**
+ * Clase principal que proporciona una interfaz interactiva para usar la maquina expendedora.
+ * Permite al usuario seleccionar productos, ingresar monedas y procesar compras de forma interactiva.
+ * 
+ * @author Tarea DOO
+ * @version 1.0
+ */
 public class MainInteractivo {
+    /**
+     * Metodo principal que ejecuta la interfaz interactiva de la maquina expendedora.
+     * Solicita al usuario ingresar la cantidad de productos, luego permite realizar compras
+     * interactivas seleccionando productos y monedas.
+     * 
+     * @param args argumentos de linea de comandos 
+     */
     public static void main(String[] args) {
         boolean loop=true;
         Expendedor exp=null;

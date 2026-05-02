@@ -1,5 +1,12 @@
 package Maquina_Expendedora;
 
+/**
+ * Clase que representa la maquina expendedora.
+ * Gestiona los depositos de productos y monedas, valida compras y calcula vuelto.
+ * 
+ * @author Tarea DOO
+ * @version 1.0
+ */
 class Expendedor {
     private Deposito<Bebida> coca;
     private Deposito<Bebida> sprite;
@@ -8,6 +15,12 @@ class Expendedor {
     private Deposito<Dulce> snickers;
     private Deposito<Moneda> monVu;
 
+    /**
+     * Constructor que inicializa la maquina expendedora con depositos de productos y monedas.
+     * Llena cada deposito con una cantidad especificada de productos.
+     * 
+     * @param cant la cantidad de cada tipo de producto a llenar en los depositos
+     */
     public Expendedor(int cant) {
         coca=new Deposito<Bebida>();
         sprite=new Deposito<Bebida>();
@@ -26,6 +39,17 @@ class Expendedor {
         }
     }
 
+    /**
+     * Procesa la compra de un producto segun la moneda ingresada.
+     * Valida el pago, obtiene el producto del deposito y calcula el vuelto.
+     * 
+     * @param m la moneda ingresada para la compra
+     * @param select el tipo de producto a comprar
+     * @return el producto si la compra es exitosa
+     * @throws PagoIncorrectoException si la moneda es nula
+     * @throws PagoInsuficienteException si el valor de la moneda es menor al precio
+     * @throws NoHayProductoException si no hay producto disponible en el deposito
+     */
     public Producto comprarProducto(Moneda m, ValorProducto select) throws PagoIncorrectoException,
         PagoInsuficienteException, NoHayProductoException{
 
@@ -98,6 +122,11 @@ class Expendedor {
 
 
 
+    /**
+     * Obtiene y extrae una moneda de vuelto del deposito de monedas.
+     * 
+     * @return una moneda de vuelto o null si no hay mas vuelto disponible
+     */
     public Moneda getVuelto(){
         return monVu.get();
     }

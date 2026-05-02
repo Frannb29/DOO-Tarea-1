@@ -1,7 +1,22 @@
 package Maquina_Expendedora;
 import java.util.Arrays;
 
+/**
+ * Clase de prueba que verifica la funcionalidad completa de la maquina expendedora.
+ * Realiza varias compras con diferentes monedas y productos, incluyendo casos de error.
+ * Tambien prueba las funcionalidades de comparacion y ordenamiento de monedas.
+ * 
+ * @author Tarea DOO
+ * @version 1.0
+ */
 public class mainprueba {
+    /**
+     * Metodo principal que ejecuta pruebas de la maquina expendedora.
+     * Realiza compras con diferentes monedas y productos, prueba casos de error,
+     * y verifica la funcionalidad de comparacion y ordenamiento de monedas.
+     * 
+     * @param args argumentos de linea de comandos 
+     */
     public static void main(String[] args) {
         Expendedor exp = new Expendedor(2);
         Comprador c1=null;
